@@ -1,4 +1,4 @@
-d3.json("/futures",function(error,data){
+Plotly.d3.json("/futures",function(error,data){
     if(error) throw error;
     var dates = [];
     var cornPrice = [];
@@ -7,7 +7,7 @@ d3.json("/futures",function(error,data){
     data.forEach(function(data){
         dates.push(new Date(data["Date"]));
         cornPrice.push(data.CornPrice)
-        soyPrice.push(data.SoybeanPrice)
+        soyPrice.push(data.SoyPrice)
         ratio.push(data.ratio)
     });
     var trace1 = {

@@ -1,7 +1,3 @@
-
-
-
-
 d3.json("/news",function(err,data){
     if(err) throw err;
     console.log(data)
@@ -13,7 +9,7 @@ d3.json("/news",function(err,data){
     let start = 0
         stop = 5
         page = 1
-        pages_length = Math.round((data.length)/5)
+        pages_length = data.length/5
         total_results = data.length
         $displayNum1 = document.querySelector("#displayNum1")
         $displayNum2 = document.querySelector("#displayNum2")
@@ -28,6 +24,7 @@ d3.json("/news",function(err,data){
             var $a = document.createElement("a");
             $a.append(`${data[i].date}: ${data[i].title}`)
             $a.href = data[i].url
+            $a.target = "_blank"
             $article.appendChild($a)
             var $br = document.createElement("hr")
             $a.appendChild($br)

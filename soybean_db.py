@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 def import_content(filepath):
     mng_client = pymongo.MongoClient('localhost', 27017)
-    mng_db = mng_client['soybean_db']
+    mng_db = mng_client['app']
 
     if filepath == 'data/soybean price.csv':
         collection = 'soybean_prices'
@@ -42,6 +42,9 @@ def import_content(filepath):
     db_cm.insert(data_json)
 
 if __name__ == "__main__":
-    filepaths = ['data/soybean price.csv', 'data/corn_soy_futures.csv', 'data/SOYB.csv', 'data/importer.csv', 'data/exporter.csv', 'data/soybean_articles.csv']
+    filepaths = ['data/soybean price.csv', 'data/corn_soy_futures.csv', 
+    'data/SOYB.csv', 'data/importer.csv', 'data/exporter.csv', 
+    'data/soybean_articles.csv']
+    
     for filepath in filepaths:
         import_content(filepath)

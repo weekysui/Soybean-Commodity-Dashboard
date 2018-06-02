@@ -1,5 +1,5 @@
 function exporter(){
-    Plotly.d3.json('/exporters', function(err, rows){
+    Plotly.d3.csv('exporter.csv', function(err, rows){
         function unpack(rows, key) {
             return rows.map(function(row) { return row[key]; });
         }
@@ -12,7 +12,7 @@ function exporter(){
             allLoad = unpack(rows, 'load'),
             listofYear = [], listofCountries = [], currentYear, currentBarCountry, currentBarValue = [], currentBarCountry = [], currentTablecountry = [],
             currentTablePercent = [], currentpercent = [], currentLoad = [], currentAreayear = [], currentAreavalue = [], currentLinePercent = [], currentLineCountry =[];
-            
+            console.log(allYear);
             for (var i = 0; i < allCountryNames.length; i++ ){
                 if (listofCountries.indexOf(allCountryNames[i]) === -1 ){
                     listofCountries.push(allCountryNames[i]);
@@ -47,7 +47,7 @@ function exporter(){
     
     
                 for (var i = 0 ; i < allYear.length ; i++){
-                        if ( allYear[i] === chosenYear && allWeight[i] !== '0') {
+                        if ( allYear[i] === chosenYear && allWeight[i] !== '0' && allPercent[i] !== '0') {
                             currentBarValue.push(allValue[i]);  
                             currentBarCountry.push(allCountryNames[i]);
                             currentBarpercent.push(allPercent[i]);   
@@ -63,7 +63,7 @@ function exporter(){
                     }   
             };
             setBarPlot('2007');
-            setTabledata('2017');
+            setTabledata('2007');
             setLinePlot('2007');
             setAreaPlot('All Countries');
             
@@ -132,7 +132,7 @@ function exporter(){
             var data = [trace1];
     
             var layout = {
-                title:'Top 5 Soybeans Exporters -'+chosenYear,
+                title:'Top 5 Soybeans Exporters -'+chosenYear+ '(in %)',
                 height: 400,
                 width: 400,
                 plot_bgcolor:"#D2CBD2",
@@ -170,7 +170,7 @@ function exporter(){
               }
       
             var layout = {
-                title: 'Fastest Growing/Declining',
+                title: 'Fastest Growing/Declining (in %)',
             };
             var data = [{
                 type: 'table',
@@ -234,7 +234,7 @@ function exporter(){
                     var data = [trace1];
             
                     var layout = {
-                        title:"Fastest Growing / Declining-"+chosenYear,
+                        title:"Fastest Growing / Declining-"+chosenYear+ '(in %)',
                         height: 400,
                         width: 500,
                         xaxis: {range: [-20,0,20,40,60]},

@@ -10,7 +10,7 @@ import pymongo
 from pymongo import MongoClient
 
 mng_client = pymongo.MongoClient('localhost', 27017)
-db = mng_client['soybean_db']
+db = mng_client['app']
 
 app = Flask(__name__)
 
@@ -18,15 +18,15 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-    # # Scrape for new news data
-    # news = mongo.db.news_articles
-    # news_data = soybean_news_scrape.scrape()
-    # news.update(
-    #     {},
-    #     news_data,
-    #     upsert=True
-    # )
-    return render_template('index4.html')
+    return render_template('index.html')
+
+@app.route('/index_IE')
+def imp_exp():
+    return render_template('index_IE.html')
+
+@app.route('/financial')
+def financial():
+    return render_template('financial.html')
 
 @app.route('/soybean_prices')
 def soy_prices():
@@ -40,38 +40,37 @@ def soy_prices():
         price_dict['Price'] = q['Price']
         prices.append(price_dict)
     return jsonify(prices)
+
 @app.route('/futures')
-def futures():
-    collection=db.corn_soy_futures
-    query=collection.find()
-    futures=[]
+def corn_soy_futures():
+    collection = db.corn_soy_futures
+    query = collection.find()
+    futures = []
     for q in query:
         futures_dict = {}
-        futures_dict['Date']=q['Date']
-        futures_dict['CornPrice']=q['CornPrice']
-        futures_dict["SoybeanPrice"]=q["SoyPrice"]
-        futures_dict["Ratio"]=q["ratio"]
+        futures_dict['Date'] = q['Date']
+        futures_dict['CornPrice'] = q['CornPrice']
+        futures_dict['SoyPrice'] = q['SoyPrice']
+        futures_dict['ratio'] = q['ratio']
         futures.append(futures_dict)
     return jsonify(futures)
-@app.route('/etf')
-def etf():
-    collection=db.soy_stocks
-    query=collection.find()
-    etf = []
-    for q in query:
-        etf_dict = {}
-        etf_dict['Date']=q["Date"]
-        etf_dict["Open"]=q["Open"]
-        etf_dict["High"]=q["High"]
-        etf_dict["Low"]=q["Low"]
-        etf_dict["Close"]=q["Close"]
-        etf_dict["Volume"]=q["Volume"]
-        etf.append(etf_dict)
-    return jsonify(etf)
 
-@app.route("/financial")
-def financial():
-    return render_template("financial.html")
+@app.route('/etf')
+def soy_stocks():
+    collection = db.soy_stocks
+    query = collection.find()
+    stocks = []
+    for q in query:
+        stocks_dict = {}
+        stocks_dict['Date'] = q['Date']
+        stocks_dict['Open'] = q['Open']
+        stocks_dict['High'] = q['High']
+        stocks_dict['Low'] = q['Low']
+        stocks_dict['Close'] = q['Close']
+        stocks_dict['Adj Close'] = q['Adj Close']
+        stocks_dict['Volume'] = q['Volume']
+        stocks.append(stocks_dict)
+    return jsonify(stocks)
 
 @app.route('/importers')
 def importers():
@@ -126,10 +125,6 @@ def news():
         news_dict['url'] = q['url']
         news.append(news_dict)
     return jsonify(news)
-
-@app.route('/IE')
-def imp_exp():
-    return render_template('index_IE.html')
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)

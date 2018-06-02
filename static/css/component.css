@@ -2,7 +2,7 @@
 .large-header {
 	position: relative;
 	width: 100%;
-	background-image: url("Capture.PNG");
+	background-image: url("../Capture.PNG");
 	overflow: hidden;
 	background-size: cover;
 	background-position: center center;

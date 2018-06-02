@@ -1,13 +1,11 @@
-
-
 d3.json("/soybean_prices",function(d){
     var myChart = echarts.init(document.getElementById('plot'));
     var date = [];
     var price = [];
-    for(var i = 0, ii = d.length;i<ii;i++){
-        date.push(d[i].Date)
-        price.push(d[i].Price)
-    }
+    d.forEach(function(data){
+        date.push(data.Date)
+        price.push(data.Price)
+    })
     myChart.setOption(option = {
             title: {
                 text: 'Soybean Prices'

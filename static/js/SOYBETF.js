@@ -23,16 +23,14 @@ function calculateMA(dayCount, data) {
 // retrieve data from SOYB.csv file from yahoo finance historical data
 d3.json("/etf",function(data){
     var dates = [];
-    var volumes = [];
     var values = [];
-    for(var i = 0,ii=data.length;i<ii;i++){
-        var price = [data[i].Open,data[i].Close,data[i].Low,data[i].High]
-        dates.push(data[i].Date)
-        values.push(price)
-        volumes.push(data[i].Volume)
-    }
-    
-    // plot moving average lines
+    var volumes = [];
+    data.forEach(function(d){
+        dates.push(d.Date)
+        values.push([+d.Open,+d.Close,+d.Low,+d.High])
+        volumes.push(+d.Volume)
+    })
+    // get moving average values
     var dataMA5 = calculateMA(5, values);
     var dataMA10 = calculateMA(10, values);
     var dataMA20 = calculateMA(20, values);
@@ -337,10 +335,10 @@ d3.json("/etf",function(data){
             }
         }]
     };
-    myChart.setOption(option)
-    $(window).on('resize', function(){
-        if(myChart != null && myChart != undefined){
-            myChart.resize();
-        }
-    });
+myChart.setOption(option)
+$(window).on('resize', function(){
+    if(myChart != null && myChart != undefined){
+        myChart.resize();
+    }
+});
 })
