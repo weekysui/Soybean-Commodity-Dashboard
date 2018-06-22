@@ -17,13 +17,13 @@ Implementation:
 
 Charts:
 1. Top 5 Exporters:
-<img src = "exporters.png">
+<img src = "expoters.png">
 2. Top 5 Importers:
 <img src = "importers.png">
 3. Soybean historical prices and Soybean and Corn Futures prices:
 <img src = "price vs. futures.png">
 4. SOYB ETF:
-<img src = "SOYB_etf.png">
+<img src = "SOYB_eft.png">
 
 
 Checkout the dashboard: https://soybean-commodity.herokuapp.com/
