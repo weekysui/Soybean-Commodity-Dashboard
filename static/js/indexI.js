@@ -1,5 +1,5 @@
 function importer(){
-    Plotly.d3.csv('importer.csv', function(err, rows){
+    Plotly.d3.json('/importers', function(err, rows){
         function unpack(rows, key) {
             return rows.map(function(row) { return row[key]; });
         }
@@ -132,7 +132,7 @@ function importer(){
             var data = [trace1];
     
             var layout = {
-                title:'Top 5 Soybeans Importers -'+chosenYear+ '(in %)',
+                title:'Top 5 Soybeans Importers -'+chosenYear,
                 height: 400,
                 width: 400,
                 plot_bgcolor:"#D2CBD2",
@@ -169,7 +169,7 @@ function importer(){
                 return result;
               }
             var layout = {
-                title: 'Fastest Growing/Declining (in %)',
+                title: 'Fastest Growing/Declining',
             };
             var data = [{
                 type: 'table',
@@ -234,7 +234,7 @@ function importer(){
                     var data = [trace1];
             
                     var layout = {
-                        title:"Fastest Growing / Declining-"+chosenYear+ '(in %)',
+                        title:"Fastest Growing / Declining-"+chosenYear,
                         height: 400,
                         width: 500,
                         xaxis: {range: [-20,0,20,40,60]},
